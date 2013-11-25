@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'
-gem 'spree', :github => 'spree/spree', branch: '2-1-stable'
-gem 'spree_auth_devise', :git => 'https://github.com/spree/spree_auth_devise.git', branch: '2-1-stable'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -45,3 +43,7 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'spree_auth_devise', :git => 'https://github.com/spree/spree_auth_devise.git', :branch => '2-1-stable'
+
+gem 'spree', '2.1.3'

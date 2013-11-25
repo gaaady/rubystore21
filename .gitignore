@@ -14,3 +14,41 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+db/*.sqlite3*
+log/*.log
+tmp/**/*
+doc/api
+doc/app
+.DS_Store
+*.swp
+*~
+.DS_Store
+*.rbc
+*.sassc
+*.log
+.sass-cache
+capybara-*.html
+/.bundle
+/vendor/bundle
+/log/*
+/.idea/*
+/public/system/*
+public/spree/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+vendor/ruby
+/vendor/cache/*
+tmp/i18n-js.cache
+Thumbs.db
+dump.rdb
+config/database.yml
+# Ignore application configuration
+#/config/database.yml
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+/public/assets/
