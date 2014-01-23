@@ -1,28 +1,24 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Taxon problem:
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+[7] pry(main)> t = Spree::Taxon.first
+  Spree::Taxon Load (0.3ms)  SELECT "spree_taxons".* FROM "spree_taxons" ORDER BY "spree_taxons"."id" ASC LIMIT 1
+=> #<Spree::Taxon id: 1, parent_id: nil, position: 0, name: "Categories", permalink: "categories", taxonomy_id: 1, lft: 1, rgt: 12, icon_file_name: nil, icon_content_type: nil, icon_file_size: nil, icon_updated_at: nil, description: nil, created_at: "2013-11-25 10:14:54", updated_at: "2013-11-25 10:14:54", meta_title: nil, meta_description: nil, meta_keywords: nil, depth: 0>
+[8] pry(main)> t.tag_list.add "cool"
+  ActsAsTaggableOn::Tag Load (3.0ms)  SELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags"."id" = "taggings"."tag_id" WHERE "taggings"."taggable_id" = ? AND "taggings"."taggable_type" = ? AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)  [["taggable_id", 1], ["taggable_type", "Spree::Taxon"]]
+=> ["cool"]
+[9] pry(main)> t.tag_list
+=> ["cool"]
+[10] pry(main)> t.save
+   (0.1ms)  begin transaction
+  Spree::Taxon Load (0.3ms)  SELECT "spree_taxons".* FROM "spree_taxons" WHERE "spree_taxons"."id" = ? LIMIT 1  [["id", 1]]
+  SQL (0.7ms)  UPDATE "spree_taxons" SET "depth" = 0 WHERE "spree_taxons"."id" IN (SELECT "spree_taxons"."id" FROM "spree_taxons" WHERE "spree_taxons"."id" = 1 ORDER BY "lft")
+  Spree::Taxonomy Load (1.0ms)  SELECT "spree_taxonomies".* FROM "spree_taxonomies" WHERE "spree_taxonomies"."id" = ? ORDER BY spree_taxonomies.position LIMIT 1  [["id", 1]]
+  SQL (0.2ms)  UPDATE "spree_taxonomies" SET "updated_at" = '2014-01-23 07:46:08.612354' WHERE "spree_taxonomies"."id" = 1
+[paperclip] Saving attachments.
+   (0.8ms)  commit transaction
+=> true
+[11] pry(main)> t.tag_list
+  ActsAsTaggableOn::Tag Load (0.2ms)  SELECT "tags".* FROM "tags" INNER JOIN "taggings" ON "tags"."id" = "taggings"."tag_id" WHERE "taggings"."taggable_id" = ? AND "taggings"."taggable_type" = ? AND (taggings.context = 'tags' AND taggings.tagger_id IS NULL)  [["taggable_id", 1], ["taggable_type", "Spree::Taxon"]]
+=> []

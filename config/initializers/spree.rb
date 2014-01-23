@@ -10,5 +10,22 @@ Spree.config do |config|
   # Uncomment to override the default site name.
   # config.site_name = "Spree Demo Site"
 end
+#Spree::PermittedAttributes.line_item_attributes << :my_custom_attribute
 
-Spree.user_class = "Spree::User"
+module Spree
+  module Core
+    module ControllerHelpers
+      module StrongParameters
+        def permitted_checkout_attributes
+          permitted_attributes.checkout_attributes + [
+            :bill_address_attributes => permitted_address_attributes,
+            :ship_address_attributes => permitted_address_attributes,
+            :payments_attributes => permitted_payment_attributes,
+            :shipments_attributes => permitted_shipment_attributes,
+            :line_items_attributes => permitted_line_item_attributes
+          ]
+        end
+      end
+    end
+  end
+end
